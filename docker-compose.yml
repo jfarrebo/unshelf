@@ -1,0 +1,61 @@
+# Unshelf – entorn de desenvolupament amb Docker
+# Serveis: app (PHP-FPM + Laravel), web (Nginx), db (MySQL), adminer (gestor web de la BD), frontend (Node + Angular)
+
+services:
+  app:
+    build:
+      context: ./docker/php
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: unshelf-app
+    working_dir: /var/www/html
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: unshelf-web
+    ports:
+      - "8000:80"          # API: http://localhost:8000
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.4
+    container_name: unshelf-db
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-unshelf}
+      MYSQL_USER: ${DB_USERNAME:-unshelf}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    ports:
+      - "3307:3306"        # 3307 per no xocar amb el MySQL local
+    volumes:
+      - db_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: unshelf-adminer
+    ports:
+      - "8080:8080"        # http://localhost:8080 (servidor: db)
+    depends_on:
+      - db
+
+  frontend:
+    image: node:22-alpine
+    container_name: unshelf-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4200:4200"        # Angular: http://localhost:4200
+    command: sh -c "npm install && npx ng serve --host 0.0.0.0 --poll 2000"
+
+volumes:
+  db_data:

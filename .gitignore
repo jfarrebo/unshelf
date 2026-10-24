@@ -1,0 +1,5 @@
+.env
+.DS_Store
+.idea/
+.vscode/
+# Les carpetes backend/ i frontend/ tenen el seu propi .gitignore (el creen Laravel i Angular)
