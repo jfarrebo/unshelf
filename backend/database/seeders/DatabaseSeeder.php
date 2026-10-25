@@ -3,23 +3,35 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Gèneres (llista tancada de l'MVP)
+        $this->call(GenreSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Compte d'administració (la contrasenya es defineix a ADMIN_PASSWORD del .env)
+        $admin = User::firstOrCreate(
+            ['email' => env('ADMIN_EMAIL', 'admin@unshelf.test')],
+            [
+                'name' => 'Administració',
+                'password' => env('ADMIN_PASSWORD', 'canvia-aquesta-contrasenya'),
+                'city' => 'Barcelona',
+            ]
+        );
+        $admin->role = 'admin';   // fora de $fillable: s'assigna explícitament
+        $admin->save();
+
+        // Usuari de proves
+        User::firstOrCreate(
+            ['email' => 'test@unshelf.test'],
+            [
+                'name' => 'Usuari de proves',
+                'password' => 'password',
+                'city' => 'Barcelona',
+            ]
+        );
     }
 }

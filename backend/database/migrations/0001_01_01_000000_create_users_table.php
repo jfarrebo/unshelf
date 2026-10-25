@@ -7,16 +7,21 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Taula d'usuaris (model de dades v7) + taules de Laravel per a contrasenyes i sessions.
      */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id('id_user');
+            $table->string('name', 100);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('city', 100);
+            $table->string('postal_code', 10)->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->boolean('is_blocked')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -37,13 +42,10 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
