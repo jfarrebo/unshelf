@@ -1,0 +1,66 @@
+<h1>Crea el teu compte</h1>
+
+<form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  @if (error()) {
+    <p class="alert" role="alert">{{ error() }}</p>
+  }
+
+  <div class="field">
+    <label for="name">Nom</label>
+    <input id="name" type="text" formControlName="name" autocomplete="name"
+           [attr.aria-invalid]="showError('name')" aria-describedby="name-error" />
+    @if (showError('name')) {
+      <p id="name-error" class="error">{{ serverError('name') ?? 'Introdueix el teu nom.' }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="email">Correu electrònic</label>
+    <input id="email" type="email" formControlName="email" autocomplete="email"
+           [attr.aria-invalid]="showError('email')" aria-describedby="email-error" />
+    @if (showError('email')) {
+      <p id="email-error" class="error">{{ serverError('email') ?? 'Introdueix un correu electrònic vàlid.' }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="password">Contrasenya</label>
+    <input id="password" type="password" formControlName="password" autocomplete="new-password"
+           [attr.aria-invalid]="showError('password')" aria-describedby="password-hint password-error" />
+    <p id="password-hint" class="hint">Mínim 8 caràcters.</p>
+    @if (showError('password')) {
+      <p id="password-error" class="error">{{ serverError('password') ?? 'La contrasenya ha de tenir almenys 8 caràcters.' }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="city">Ciutat</label>
+    <input id="city" type="text" formControlName="city" autocomplete="address-level2"
+           [attr.aria-invalid]="showError('city')" aria-describedby="city-error" />
+    @if (showError('city')) {
+      <p id="city-error" class="error">{{ serverError('city') ?? 'Introdueix la teva ciutat.' }}</p>
+    }
+  </div>
+
+  <div class="field">
+    <label for="postal_code">Codi postal (opcional)</label>
+    <input id="postal_code" type="text" formControlName="postal_code" autocomplete="postal-code" inputmode="numeric" />
+  </div>
+
+  <div class="field">
+    <label>
+      <input type="checkbox" formControlName="accepted_privacy"
+             [attr.aria-invalid]="showError('accepted_privacy')" aria-describedby="privacy-error" />
+      Accepto la política de privacitat
+    </label>
+    @if (showError('accepted_privacy')) {
+      <p id="privacy-error" class="error">{{ serverError('accepted_privacy') ?? 'Cal acceptar la política de privacitat.' }}</p>
+    }
+  </div>
+
+  <button class="button" type="submit" [disabled]="loading()">
+    {{ loading() ? 'Creant el compte…' : 'Crear el compte' }}
+  </button>
+
+  <p>Ja tens compte? <a routerLink="/inici-sessio">Inicia la sessió</a></p>
+</form>

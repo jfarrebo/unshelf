@@ -1,0 +1,31 @@
+<h1>Inicia la sessió</h1>
+
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  @if (error()) {
+    <p role="alert">{{ error() }}</p>
+  }
+
+  <div>
+    <label for="email">Correu electrònic</label>
+    <input id="email" type="email" formControlName="email" autocomplete="email"
+           [attr.aria-invalid]="showError('email')" aria-describedby="email-error" />
+    @if (showError('email')) {
+      <p id="email-error">Introdueix un correu electrònic vàlid.</p>
+    }
+  </div>
+
+  <div>
+    <label for="password">Contrasenya</label>
+    <input id="password" type="password" formControlName="password" autocomplete="current-password"
+           [attr.aria-invalid]="showError('password')" aria-describedby="password-error" />
+    @if (showError('password')) {
+      <p id="password-error">Introdueix la contrasenya.</p>
+    }
+  </div>
+
+  <button type="submit" [disabled]="loading()">
+    {{ loading() ? 'Iniciant la sessió…' : 'Inicia la sessió' }}
+  </button>
+
+  <p>No tens compte? <a routerLink="/registre">Registra't</a></p>
+</form>

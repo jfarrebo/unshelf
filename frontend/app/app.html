@@ -1,0 +1,24 @@
+<a class="skip-link" href="#contingut">Salta al contingut</a>
+
+<header class="header">
+  <a routerLink="/" class="logo">Unshelf</a>
+
+  <nav aria-label="Navegació principal">
+    <ul class="nav">
+      @if (auth.isLoggedIn()) {
+        <li><a routerLink="/perfil" routerLinkActive="active">El meu perfil</a></li>
+        @if (auth.isAdmin()) {
+          <li><a routerLink="/admin" routerLinkActive="active">Administració</a></li>
+        }
+        <li><button type="button" class="link-button" (click)="logout()">Tanca la sessió</button></li>
+      } @else {
+        <li><a routerLink="/inici-sessio" routerLinkActive="active">Inicia la sessió</a></li>
+        <li><a routerLink="/registre" routerLinkActive="active">Registra't</a></li>
+      }
+    </ul>
+  </nav>
+</header>
+
+<main id="contingut">
+  <router-outlet />
+</main>
