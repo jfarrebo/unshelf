@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('id_user_requester')->constrained('users', 'id_user');
             $table->foreignId('id_user_owner')->constrained('users', 'id_user');
             $table->enum('mode', ['prestec', 'donacio']);
+                        $table->unsignedTinyInteger('loan_weeks')->nullable(); 
             $table->enum('status', ['pendent', 'acceptada', 'rebutjada', 'cancellada', 'en_prestec', 'finalitzada'])
                   ->default('pendent');
             $table->date('due_date')->nullable();
