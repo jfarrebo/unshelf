@@ -1,0 +1,16 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'tokens';
+
+/// Converteix px a rem amb referència de 16 px
+@function rem($px) {
+  @if $px == 0 {
+    @return 0;
+  }
+  @return math.div($px, 16px) * 1rem;
+}
+
+/// Espai del sistema en rem
+@function space($key) {
+  @return rem(map.get(tokens.$spacing, $key));
+}

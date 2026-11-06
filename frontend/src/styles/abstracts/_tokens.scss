@@ -1,0 +1,148 @@
+// Tokens del sistema de disseny
+// Aquí només hi ha dades: es converteixen en variables CSS a base/_root.scss.
+
+// Colors semàntics.
+$colors: (
+  // Fons
+  'surface': #ffffff,
+  'surface-secondary': #fafafa,
+  'page-muted': #f7f8fb,
+
+  // Text
+  'text': #1c2230,
+  'text-secondary': #535a6a,
+  'text-muted': #5d6577,
+  'text-disabled': #6f7686,
+  'text-inverse': #ffffff,
+  'brand': #2d4a7a,
+  'link': #2d4a7a,
+
+  // Accions (botons)
+  'action-primary': #2d4a7a,
+  'action-primary-pressed': #233a5f,
+  'on-primary': #ffffff,
+  'action-secondary': #f6c59b,
+  'action-secondary-pressed': #f0a25f,
+  'on-secondary': #1c2230,
+  'action-tertiary': #ffffff,
+  'action-tertiary-pressed': #f0f0f0,
+  'on-tertiary': #2d4a7a,
+  'action-destructive': #b3261e,
+  'action-destructive-pressed': #8b1e17,
+  'on-destructive': #ffffff,
+  'action-disabled': #f0f0f0,
+  'border-disabled': #e3e3e3,
+
+  // Vores i focus
+  'border-subtle': #e3e3e3,
+  'border-default': #d9d9d9,
+  // capçalera i peu
+  'input-border': #8e8e8e,
+  'focus': #445e89,
+
+  // Errors de formulari
+  'input-error': #b3261e,
+  'error-text': #9f221b,
+
+  // Selecció i navegació
+  'selection': #e8ebf0,
+  'on-selection': #233a5f,
+  'nav-active-bg': #e8ebf0,
+  'nav-active-text': #2d4a7a,
+
+  // Avisos (fons / text / vora)
+  'info-bg': #e8ebf0,
+  'info-text': #1e3151,
+  'info-border': #445e89,
+  'warning-bg': #fdf3eb,
+  'warning-text': #84532a,
+  'warning-border': #f0a25f,
+  'success-bg': #e8f1eb,
+  'success-text': #1f5335,
+  'error-bg': #f7e7e6,
+  'error-strong': #771914
+);
+
+// Espais (px de Figma; es converteixen a rem)
+$spacing: (
+  0: 0,
+  4: 4px,
+  8: 8px,
+  12: 12px,
+  16: 16px,
+  20: 20px,
+  24: 24px,
+  32: 32px,
+);
+
+// Radis
+$radius: (
+  4: 4px,
+  8: 8px,
+  12: 12px,
+  16: 16px,
+  full: 999px,
+);
+
+// Rols tipogràfics: mida / interlineat / pes
+$type: (
+  'heading-large': (
+    size: 37px,
+    line-height: 44.4px,
+    weight: 400,
+  ),
+  'heading-medium': (
+    size: 31px,
+    line-height: 37.2px,
+    weight: 400,
+  ),
+  'heading-small': (
+    size: 26px,
+    line-height: 31.2px,
+    weight: 400,
+  ),
+  'body-medium': (
+    size: 18px,
+    line-height: 21.6px,
+    weight: 400,
+  ),
+  'body-small': (
+    size: 15px,
+    line-height: 18px,
+    weight: 400,
+  ),
+  'label-medium': (
+    size: 15px,
+    line-height: 20px,
+    weight: 500,
+  ),
+  'label-small': (
+    size: 12px,
+    line-height: 16px,
+    weight: 500,
+  ),
+  'caption': (
+    size: 12px,
+    line-height: 14.4px,
+    weight: 400,
+  ),
+);
+
+$font-family: 'Libre Franklin', system-ui, sans-serif;
+
+// Ombra freqüent
+$shadow-soft: 0 0 4px 0 rgba(68, 94, 137, 0.1);
+
+// Mida tàctil mínima (WCAG 2.5.5 / requisit del projecte)
+$touch-target: 44px;
+
+// Opacitat dels elements desactivats (Figma: opacity/disabled = 48)
+$opacity-disabled: 0.48;
+
+// Punts de tall
+$breakpoints: (
+  md: 768px,
+  lg: 1024px,
+);
+
+$container-max: 1200px;

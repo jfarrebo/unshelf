@@ -1,0 +1,69 @@
+// Icones de Figma aplicades com a màscara: agafen el color del text
+// (currentColor) i canvien amb els estats hover/actiu sense duplicar fitxers.
+// Sempre decoratives: el nom accessible el dona el botó o l'enllaç que les conté.
+.icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.icon--sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+// Per afegir-ne una: baixar-la de Figma a public/icons/NOM.svg i afegir NOM a la llista.
+$icons: (
+  // Navegació
+  user,
+  menu,
+  search,
+  chevron-right,
+  chevron-left,
+  chevron-down,
+  arrow-left,
+  x,
+  external-link,
+  log-out,
+  // Formularis i avisos
+  eye,
+  eye-off,
+  check,
+  info,
+  alert-circle,
+  alert-triangle,
+  check-circle,
+  x-circle,
+  // Exemplars (publicar, editar, pausar, retirar)
+  book-open,
+  camera,
+  upload,
+  plus,
+  edit,
+  pause,
+  play,
+  trash-2,
+  map-pin,
+  // Sol·licituds i xat (préstec, donació, retorn, dates)
+  inbox,
+  send,
+  message-circle,
+  calendar,
+  clock,
+  gift,
+  refresh-cw,
+  filter,
+  // Administració
+  shield,
+  user-x
+);
+
+@each $name in $icons {
+  .icon--#{$name} {
+    --icon: url('/icons/#{$name}.svg');
+  }
+}

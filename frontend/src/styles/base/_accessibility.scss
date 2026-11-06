@@ -1,0 +1,40 @@
+@use '../abstracts' as *;
+
+// Focus visible a tot arreu (només amb teclat, no en fer clic)
+:focus-visible {
+  @include focus-ring;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// «Salta al contingut»: amagat fins que rep el focus
+.skip-link {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  z-index: 100;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-8);
+  background-color: var(--color-action-primary);
+  color: var(--color-on-primary);
+  @include type('label-medium');
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+    color: var(--color-on-primary);
+  }
+}
+
+// Si l'usuari ha demanat menys moviment, s'anul·len transicions i animacions
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

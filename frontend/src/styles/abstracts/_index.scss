@@ -1,0 +1,4 @@
+// Punt d'entrada de les eines Sass (no genera CSS). Ús: @use 'abstracts' as *;
+@forward 'tokens';
+@forward 'functions';
+@forward 'mixins';

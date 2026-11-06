@@ -1,1 +1,12 @@
-/* Estils globals: buit fins que es defineixi la guia d'estil */
+// Estils globals d'Unshelf (sistema de disseny de Figma).
+// Ordre: variables → base → maquetació → components. Els components d'Angular
+// fan servir les variables CSS o `@use 'abstracts' as *;` per a mixins i rem().
+@use 'styles/base/root';
+@use 'styles/base/reset';
+@use 'styles/base/typography';
+@use 'styles/base/accessibility';
+@use 'styles/layout/page';
+@use 'styles/components/icons';
+@use 'styles/components/buttons';
+@use 'styles/components/forms';
+@use 'styles/components/notices';

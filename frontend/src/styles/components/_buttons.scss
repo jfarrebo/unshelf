@@ -1,0 +1,154 @@
+@use '../abstracts' as *;
+
+// Botó de text (Figma «Styles» › Button, mida Medium, node 12:803):
+// mínim 44 px d'alçada, radi 8, padding 12/24, etiqueta label-medium, icones de 16 px.
+// Serveix per a <button> i per a <a> amb aspecte de botó.
+// Estats de Figma: predeterminat, premut (també s'aplica al hover), focus i desactivat.
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--touch-target);
+  padding: var(--space-12) var(--space-24);
+  border: 1px solid transparent;
+  border-radius: var(--radius-8);
+  @include type('label-medium');
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+
+  // Focus de Figma: anell de 2 px a 3 px del botó (radi 12)
+  &:focus-visible {
+    outline-offset: 3px;
+  }
+
+  &[aria-busy='true'] {
+    cursor: progress;
+  }
+}
+
+// Els colors es repeteixen a :hover perquè els enllaços amb .btn no heretin el hover de <a>
+.btn--primary {
+  background-color: var(--color-action-primary);
+
+  &,
+  &:hover {
+    color: var(--color-on-primary);
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--color-action-primary-pressed);
+  }
+}
+
+.btn--secondary {
+  background-color: var(--color-action-secondary);
+
+  &,
+  &:hover {
+    color: var(--color-on-secondary);
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--color-action-secondary-pressed);
+  }
+}
+
+.btn--tertiary {
+  background-color: var(--color-action-tertiary);
+  border-color: var(--color-border-subtle);
+
+  &,
+  &:hover {
+    color: var(--color-on-tertiary);
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--color-action-tertiary-pressed);
+  }
+}
+
+// Accions irreversibles (retirar un exemplar, rebutjar una sol·licitud…)
+.btn--destructive {
+  background-color: var(--color-action-destructive);
+
+  &,
+  &:hover {
+    color: var(--color-on-destructive);
+  }
+
+  &:hover,
+  &:active {
+    background-color: var(--color-action-destructive-pressed);
+  }
+}
+
+// Desactivat (igual per a tots els estils). Va al final perquè guanyi als variants, també en hover.
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  &,
+  &:hover,
+  &:active {
+    cursor: not-allowed;
+    background-color: var(--color-action-disabled);
+    border-color: var(--color-border-disabled);
+    color: var(--color-text-disabled);
+    opacity: var(--opacity-disabled);
+  }
+}
+
+// Ocupa tota l'amplada
+.btn--block {
+  width: 100%;
+}
+
+// Botó només amb icona: 44 × 44, icona de 24
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: var(--space-8);
+  border: 0;
+  border-radius: var(--radius-8);
+  background-color: transparent;
+  color: var(--color-brand);
+
+  &:hover {
+    background-color: var(--color-selection);
+    color: var(--color-brand);
+  }
+
+  // Pàgina actual
+  &.is-active,
+  &[aria-current='page'] {
+    background-color: var(--color-action-primary-pressed);
+    color: var(--color-on-primary);
+  }
+}
+
+// Grup d'accions de formulari o de pàgina
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.text-link {
+  @include type('label-medium');
+  color: var(--color-text-secondary);
+  text-align: center;
+
+  a {
+    display: inline-block;
+    padding-block: var(--space-12); // àrea tàctil de 44 px
+    color: var(--color-link);
+  }
+}

@@ -1,0 +1,48 @@
+@use '../abstracts' as *;
+
+body {
+  font-family: var(--font-family);
+  @include type('body-medium');
+  color: var(--color-text);
+  background-color: var(--color-page-muted);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-text);
+  overflow-wrap: break-word; // títols de llibres llargs
+}
+
+h1 {
+  @include type('heading-medium');
+}
+
+h2 {
+  @include type('heading-small');
+}
+
+h3 {
+  @include type('body-medium', 700);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+
+  &:hover {
+    color: var(--color-action-primary-pressed);
+  }
+}
+
+::selection {
+  background-color: var(--color-selection);
+  color: var(--color-on-selection);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}

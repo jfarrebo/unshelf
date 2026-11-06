@@ -1,0 +1,26 @@
+@use 'sass:map';
+@use '../abstracts' as *;
+
+// Els tokens es publiquen com a variables CSS (--color-text, --space-16, --radius-8…)
+// perquè qualsevol component els pugui fer servir sense importar Sass.
+:root {
+  @each $name, $value in $colors {
+    --color-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $spacing {
+    --space-#{$name}: #{rem($value)};
+  }
+
+  @each $name, $value in $radius {
+    --radius-#{$name}: #{$value};
+  }
+
+  --font-family: #{$font-family};
+  --shadow-soft: #{$shadow-soft};
+  --touch-target: #{rem($touch-target)};
+  --opacity-disabled: #{$opacity-disabled};
+  --container-max: #{rem($container-max)};
+
+  color-scheme: light; // no hi ha disseny fosc a Figma
+}

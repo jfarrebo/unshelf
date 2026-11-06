@@ -1,0 +1,57 @@
+@use 'sass:list';
+@use '../abstracts' as *;
+
+// Avís: icona + títol + descripció. Quatre tons semàntics;
+// el títol explica la situació perquè no depengui del color.
+.notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  border: 1px solid;
+  border-radius: var(--radius-12);
+  @include type('body-small');
+}
+
+.notice__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.notice__title {
+  @include type('label-medium');
+}
+
+$tones: (
+  info: (
+    'info-bg',
+    'info-text',
+    'info-border',
+  ),
+  warning: (
+    'warning-bg',
+    'warning-text',
+    'warning-border',
+  ),
+  success: (
+    'success-bg',
+    'success-text',
+    'success-text',
+  ),
+  error: (
+    'error-bg',
+    'error-strong',
+    'input-error',
+  ),
+);
+
+@each $tone, $c in $tones {
+  .notice--#{$tone} {
+    background-color: var(--color-#{list.nth($c, 1)});
+    color: var(--color-#{list.nth($c, 2)});
+    border-color: var(--color-#{list.nth($c, 3)});
+  }
+}

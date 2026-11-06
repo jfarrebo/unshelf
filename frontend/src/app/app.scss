@@ -1,0 +1,16 @@
+// Estructura de la pàgina: capçalera, contingut i peu; el peu queda a baix encara que hi hagi poc contingut
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.site-main {
+  flex: 1;
+
+  // El focus hi arriba des de «Salta al contingut»; no cal mostrar-ne l'anell
+  &:focus {
+    outline: none;
+  }
+}
