@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_mysql mbstring zip gd bcmath \
     && rm -rf /var/lib/apt/lists/*
 
+# Pujada de fotos: fins a 10 MB per fitxer (per defecte PHP en permet 2)
+RUN printf "upload_max_filesize=10M\npost_max_size=12M\n" > "$PHP_INI_DIR/conf.d/uploads.ini"
+
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_HOME=/tmp/composer
