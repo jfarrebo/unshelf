@@ -1,0 +1,83 @@
+@use 'abstracts' as *;
+
+.site-footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  padding-block: var(--space-32);
+
+  @include from(md) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: var(--space-32);
+  }
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.site-footer__logo {
+  @include type('heading-medium', 700);
+  color: var(--color-text);
+}
+
+.site-footer__caption,
+.site-footer__credits {
+  @include type('caption');
+  color: var(--color-text-secondary);
+}
+
+.site-footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+
+  @include from(md) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.site-footer__title {
+  padding-bottom: var(--space-4);
+  @include type('body-small', 700);
+  color: var(--color-text);
+}
+
+.site-footer__links {
+  padding: 0;
+  list-style: none;
+
+  // Enllaços de llista: la mida la dona el text (16 px d'interlineat + 4 px amunt i avall = 24 px,
+  // el ritme de Figma). Els 44 px són per a botons i icones, no per a enllaços de text.
+  a {
+    display: inline-block;
+    padding-block: var(--space-4);
+    @include type('label-small');
+    color: var(--color-text);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-link);
+      text-decoration: underline;
+    }
+  }
+}
+
+.site-footer__credits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+
+  @include from(md) {
+    grid-column: 1 / -1;
+  }
+}

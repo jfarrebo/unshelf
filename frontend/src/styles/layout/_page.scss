@@ -1,0 +1,55 @@
+@use '../abstracts' as *;
+
+// Amplada de lectura: fluida al mòbil (24 px de marge, com a Figma) i limitada a escriptori
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--space-24);
+
+  @include from(lg) {
+    padding-inline: var(--space-32);
+  }
+}
+
+// Contingut principal de cada pàgina
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding-block: var(--space-24);
+
+  @include from(md) {
+    gap: var(--space-32);
+    padding-block: var(--space-32);
+  }
+}
+
+// Pàgines d'accés (inici de sessió, registre): columna estreta, més llegible a escriptori
+.page--narrow {
+  width: 100%;
+  max-width: rem(560px);
+  margin: 0 auto; // centrada dins del contenidor
+}
+
+// Títol + descripció
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+
+  p {
+    color: var(--color-text-secondary);
+  }
+}
+
+// Piles verticals reutilitzables
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.stack--lg {
+  gap: var(--space-24);
+}

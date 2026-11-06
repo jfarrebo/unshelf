@@ -1,0 +1,42 @@
+<footer class="site-footer">
+  <div class="site-footer__inner container">
+    <div class="site-footer__brand">
+      <p class="site-footer__logo">Unshelf</p>
+      <p class="site-footer__caption">Comparteix llibres amb la gent del teu barri</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Peu de pàgina">
+      <div class="site-footer__group">
+        <h2 class="site-footer__title">Descobreix</h2>
+        <ul class="site-footer__links">
+          <li><a routerLink="/llibres">Catàleg</a></li>
+          <!-- Publicar només té sentit amb sessió iniciada (com a la capçalera) -->
+          @if (auth.isLoggedIn()) {
+            <li><a routerLink="/publicar">Publicar un llibre</a></li>
+          }
+        </ul>
+      </div>
+
+      <div class="site-footer__group">
+        <h2 class="site-footer__title">Sobre Unshelf</h2>
+        <ul class="site-footer__links">
+          <li><a routerLink="/com-funciona">Com funciona</a></li>
+          <li><a routerLink="/contacte">Contacte</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__group">
+        <h2 class="site-footer__title">Legal</h2>
+        <ul class="site-footer__links">
+          <li><a routerLink="/avis-legal">Avís legal</a></li>
+          <li><a routerLink="/privacitat">Política de privacitat</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="site-footer__credits">
+      <p>© {{ year }} Unshelf</p>
+      <p>Màster en Desenvolupament de Llocs i Aplicacions Web, <i>UOC</i>, Judith Farré Bonet.</p>
+    </div>
+  </div>
+</footer>

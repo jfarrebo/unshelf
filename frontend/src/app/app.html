@@ -1,24 +1,9 @@
-<a href="#contingut">Salta al contingut</a>
+<a class="skip-link" href="#contingut">Salta al contingut</a>
 
-<header>
-  <a routerLink="/">Unshelf</a>
+<app-header />
 
-  <nav aria-label="Navegació principal">
-    <ul>
-      @if (auth.isLoggedIn()) {
-        <li><a routerLink="/perfil" routerLinkActive="active">El meu perfil</a></li>
-        @if (auth.isAdmin()) {
-          <li><a routerLink="/admin" routerLinkActive="active">Administració</a></li>
-        }
-        <li><button type="button" (click)="logout()">Tanca la sessió</button></li>
-      } @else {
-        <li><a routerLink="/inici-sessio" routerLinkActive="active">Inicia la sessió</a></li>
-        <li><a routerLink="/registre" routerLinkActive="active">Registra't</a></li>
-      }
-    </ul>
-  </nav>
-</header>
-
-<main id="contingut">
+<main id="contingut" class="site-main container" tabindex="-1">
   <router-outlet />
 </main>
+
+<app-footer />

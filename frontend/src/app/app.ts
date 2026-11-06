@@ -1,18 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AuthService } from './core/services/auth.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Footer } from './core/layout/footer/footer';
+import { Header } from './core/layout/header/header';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
-  protected readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
-
-  logout(): void {
-    this.auth.logout().subscribe(() => this.router.navigate(['/']));
-  }
-}
+export class App {}

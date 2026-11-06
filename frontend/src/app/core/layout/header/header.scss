@@ -1,0 +1,148 @@
+@use 'abstracts' as *;
+
+.site-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+// Graella amb àrees: l'ordre del DOM és l'ordre de lectura i de focus
+// (logotip → menú → navegació → cercador → usuari).
+.site-header__inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  // La navegació no té àrea al mòbil: ocupa una fila implícita només quan és oberta
+  grid-template-areas:
+    'logo    .       actions'
+    'menu    search  search';
+  align-items: center;
+  column-gap: rem(10px); // excepció observada a Figma
+  row-gap: var(--space-12);
+  padding-block: var(--space-24);
+
+  @include from(lg) {
+    grid-template-columns: auto auto 1fr auto;
+    grid-template-areas: 'logo nav search actions';
+    column-gap: var(--space-24);
+    padding-block: var(--space-16);
+  }
+}
+
+
+.site-header__logo {
+  grid-area: logo;
+  @include type('heading-large', 700);
+  color: var(--color-text);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.site-header__actions {
+  grid-area: actions;
+  display: flex;
+  gap: var(--space-8);
+  justify-content: flex-end;
+}
+
+.site-header__menu-button {
+  grid-area: menu;
+
+  @include from(lg) {
+    display: none;
+  }
+}
+
+// Cercador (Figma «Search»): la caixa és el formulari; el camp no té vora pròpia
+.site-search {
+  grid-area: search;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--touch-target);
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-8);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  &:focus-within {
+    @include focus-ring;
+  }
+
+  @include from(lg) {
+    justify-self: end;
+    width: 100%;
+    max-width: rem(400px);
+  }
+}
+
+.site-search__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  @include type('body-medium');
+
+  &::placeholder {
+    color: var(--color-text-muted);
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: none; // el focus es mostra a tota la caixa (.site-search:focus-within)
+  }
+}
+
+// Navegació: plegada al mòbil, sempre visible a escriptori
+.site-nav {
+  grid-column: 1 / -1;
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
+
+  @include from(lg) {
+    grid-area: nav;
+    display: block;
+  }
+}
+
+.site-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+
+  @include from(lg) {
+    flex-direction: row;
+  }
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: var(--space-8) var(--space-12);
+  border: 0;
+  border-radius: var(--radius-8);
+  background: transparent;
+  @include type('label-medium');
+  color: var(--color-text-secondary);
+  text-align: left;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--color-selection);
+    color: var(--color-nav-active-text);
+  }
+
+  &.is-active {
+    background-color: var(--color-nav-active-bg);
+    color: var(--color-nav-active-text);
+  }
+}

@@ -1,0 +1,65 @@
+<header class="site-header">
+  <div class="site-header__inner container">
+    <a routerLink="/" class="site-header__logo">Unshelf</a>
+
+      <button #menuButton type="button" class="icon-button site-header__menu-button"
+              [attr.aria-expanded]="menuOpen()" aria-controls="navegacio-principal" (click)="toggleMenu()">
+        <span class="icon icon--menu" aria-hidden="true"></span>
+        <span class="visually-hidden">Menú</span>
+      </button>
+
+      <nav id="navegacio-principal" class="site-nav" [class.is-open]="menuOpen()" aria-label="Navegació principal">
+        <ul class="site-nav__list">
+          <!-- Per a tothom -->
+          <li>
+            <a routerLink="/com-funciona" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="site-nav__link">Com funciona</a>
+          </li>
+          <li>
+            <a routerLink="/llibres" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="site-nav__link">Catàleg</a>
+          </li>
+
+          <!-- Usuari registrat -->
+          @if (auth.isLoggedIn()) {
+            <li>
+              <a routerLink="/publicar" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="site-nav__link">Publicar</a>
+            </li>
+            <li>
+              <a routerLink="/sollicituds" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="site-nav__link">Sol·licituds</a>
+            </li>
+
+            <!-- Administrador -->
+            @if (auth.isAdmin()) {
+              <li>
+                <a routerLink="/admin" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="site-nav__link">Admin</a>
+              </li>
+            }
+            <li>
+              <button type="button" class="site-nav__link" (click)="logout()">Tanca la sessió</button>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <form class="site-search" role="search" (submit)="search($event, query.value)">
+        <label for="cerca" class="visually-hidden">Cerca llibres per títol, autor o ISBN</label>
+        <span class="icon icon--sm icon--search" aria-hidden="true"></span>
+        <input #query id="cerca" name="q" type="search" class="site-search__input" placeholder="Cercar" />
+      </form>
+
+    <div class="site-header__actions">
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/perfil" routerLinkActive="is-active" ariaCurrentWhenActive="page" class="icon-button">
+          <span class="icon icon--user" aria-hidden="true"></span>
+          <span class="visually-hidden">El meu perfil</span>
+        </a>
+      } @else {
+        <!-- Porta a la pàgina d'accés (crear compte o iniciar sessió); activa a les tres pàgines d'accés, com a Figma -->
+        <a routerLink="/acces" ariaCurrentWhenActive="page" routerLinkActive="is-active"
+           class="icon-button" [class.is-active]="isAccessPage()">
+          <span class="icon icon--user" aria-hidden="true"></span>
+          <span class="visually-hidden">Accedeix al teu compte</span>
+        </a>
+      }
+    </div>
+  </div>
+</header>
