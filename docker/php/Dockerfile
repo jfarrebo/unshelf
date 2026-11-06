@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_HOME=/tmp/composer
 
+# Tinker (PsySH) desa la configuració i l'historial a /tmp
+# www-data no pot escriure a /var/www
+ENV XDG_CONFIG_HOME=/tmp/.config
+
 # L'usuari del contenidor té el mateix UID/GID que l'usuari de l'ordinador
 # (evita problemes de permisos amb els fitxers creats dins del contenidor)
 ARG UID=1000
