@@ -25,7 +25,7 @@
   }
 }
 
-// Dins de pàgines amb fons page-muted, l'estat buit va sobre blanc perquè es distingeixi
-.page .empty-state {
+// Sobre pàgines amb fons gris (p. ex. la fitxa), l'estat buit va en blanc perquè es distingeixi
+.empty-state--surface {
   background-color: var(--color-surface);
 }

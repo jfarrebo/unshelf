@@ -1,0 +1,89 @@
+<dialog #dialog class="sheet" aria-labelledby="filtres-titol" (click)="onDialogClick($event)">
+  <form class="sheet__form" (submit)="submit($event)">
+    <div class="sheet__header">
+      <div class="sheet__title-row">
+        <h2 id="filtres-titol">Filtres</h2>
+        <button type="button" class="icon-button" (click)="close()">
+          <span class="icon icon--x" aria-hidden="true"></span>
+          <span class="visually-hidden">Tanca els filtres</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="sheet__body">
+      <div>
+        <button type="button" class="link-button" (click)="reset()">Restablir els filtres</button>
+      </div>
+
+      <fieldset class="fieldset">
+        <legend>Estat de l'exemplar</legend>
+        @for (option of conditionOptions; track option[0]) {
+          <label class="checkbox">
+            <input type="checkbox" [checked]="isSelected('conditions', option[0])"
+                   (change)="toggle('conditions', option[0])" />
+            {{ option[1] }}
+          </label>
+        }
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Gènere</legend>
+        @for (genre of visibleGenres(); track genre.id_genre) {
+          <label class="checkbox">
+            <input type="checkbox" [checked]="isSelected('genres', genre.slug)"
+                   (change)="toggle('genres', genre.slug)" />
+            {{ genre.name }}
+          </label>
+        } @empty {
+          <p class="text-secondary">No s'han pogut carregar els gèneres.</p>
+        }
+        @if (canToggleGenres()) {
+          <div class="filters-sheet__more">
+            <button type="button" class="link-button" [attr.aria-expanded]="showAllGenres()"
+                    (click)="showAllGenres.set(!showAllGenres())">
+              {{ showAllGenres() ? 'Veure menys' : 'Veure més' }}<span class="visually-hidden"> gèneres</span>
+            </button>
+          </div>
+        }
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Modalitat</legend>
+        <div class="chip-group">
+          @for (option of modeOptions; track option[0]) {
+            <label class="chip">
+              <input type="checkbox" [checked]="isSelected('modes', option[0])"
+                     (change)="toggle('modes', option[0])" />
+              <span class="icon icon--sm icon--check" aria-hidden="true"></span>
+              {{ option[1] }}
+            </label>
+          }
+          <!-- L'intercanvi és de la segona iteració: es mostra desactivat, com a Figma -->
+          <label class="chip">
+            <input type="checkbox" disabled aria-describedby="intercanvi-nota" />
+            Intercanvi
+          </label>
+        </div>
+        <p id="intercanvi-nota" class="visually-hidden">Disponible properament</p>
+      </fieldset>
+
+      <fieldset class="fieldset">
+        <legend>Idioma</legend>
+        <div class="chip-group">
+          @for (option of languageOptions; track option[0]) {
+            <label class="chip">
+              <input type="checkbox" [checked]="isSelected('languages', option[0])"
+                     (change)="toggle('languages', option[0])" />
+              <span class="icon icon--sm icon--check" aria-hidden="true"></span>
+              {{ option[1] }}
+            </label>
+          }
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="sheet__footer">
+      <button type="submit" class="btn btn--primary btn--block">Aplicar els filtres</button>
+    </div>
+  </form>
+</dialog>

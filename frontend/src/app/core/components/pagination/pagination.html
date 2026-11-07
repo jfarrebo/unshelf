@@ -1,0 +1,18 @@
+<nav aria-label="Paginació">
+  <ul class="pagination">
+    @for (item of items(); track item.type === 'page' ? item.page : item.key) {
+      @if (item.type === 'page') {
+        <li>
+          <a class="pagination__page" [class.is-current]="item.page === current()"
+             [routerLink]="[]" [queryParams]="paramsFor()(item.page)"
+             [attr.aria-current]="item.page === current() ? 'page' : null"
+             (click)="pageChange.emit(item.page)">
+            <span class="visually-hidden">Pàgina </span>{{ item.page }}
+          </a>
+        </li>
+      } @else {
+        <li class="pagination__gap" aria-hidden="true">…</li>
+      }
+    }
+  </ul>
+</nav>

@@ -1,0 +1,53 @@
+<article class="card copy-card" [class.card--highlight]="isOwn()">
+  <div class="copy-card__owner">
+    <span class="avatar" aria-hidden="true">
+      @if (copy().owner?.avatar_url; as avatar) {
+        <img [src]="avatar" alt="" />
+      } @else {
+        {{ ownerInitials() }}
+      }
+    </span>
+
+    <div class="copy-card__who">
+      <div class="copy-card__name-row">
+        <h3 class="copy-card__name">{{ isOwn() ? 'El teu exemplar' : ownerName() }}</h3>
+        @if (myRequest()) {
+          <span class="badge badge--warning">Sol·licitat</span>
+        } @else if (!isOwn()) {
+          <span class="badge badge--secondary">{{ statusLabel() }}</span>
+        }
+      </div>
+      <p class="copy-card__city">{{ copy().owner?.city }}</p>
+    </div>
+  </div>
+
+  <div class="copy-card__body">
+    @if (copy().notes) {
+      <p class="copy-card__notes">{{ copy().notes }}</p>
+    }
+
+    <div class="info-box">
+      <strong>{{ terms() }}</strong>
+      <span>Estat: {{ conditionLabel() }}</span>
+    </div>
+
+    <!-- Les rutes de sol·licitud i d'edició es construeixen a la setmana 3 -->
+    @if (isOwn()) {
+      <a class="btn btn--tertiary btn--block" [routerLink]="['/exemplars', copy().id_copy, 'editar']">
+        <span class="icon icon--sm icon--edit" aria-hidden="true"></span>
+        Edita l'exemplar
+      </a>
+    } @else if (myRequest(); as request) {
+      <a class="btn btn--secondary btn--block" [routerLink]="['/sollicituds', request.id_book_request]">
+        Veure la sol·licitud<span class="visually-hidden"> de l'exemplar de {{ ownerName() }}</span>
+        <span class="icon icon--sm icon--chevron-right" aria-hidden="true"></span>
+      </a>
+    } @else if (canRequest()) {
+      <a class="btn btn--primary btn--block" routerLink="/sollicituds/nova"
+         [queryParams]="{ exemplar: copy().id_copy }">
+        Sol·licitar<span class="visually-hidden"> l'exemplar de {{ ownerName() }}</span>
+        <span class="icon icon--sm icon--chevron-right" aria-hidden="true"></span>
+      </a>
+    }
+  </div>
+</article>

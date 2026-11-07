@@ -1,0 +1,54 @@
+@use 'abstracts' as *;
+
+// A la graella, totes les targetes d'una fila tenen la mateixa alçada
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.copy-card {
+  flex: 1;
+  gap: var(--space-16);
+}
+
+.copy-card__owner {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.copy-card__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.copy-card__name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.copy-card__name {
+  @include type('heading-small');
+}
+
+.copy-card__city,
+.copy-card__notes {
+  @include type('body-small');
+  color: var(--color-text-secondary);
+}
+
+// El botó queda a baix de tot encara que les notes tinguin llargades diferents
+.copy-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-8);
+
+  > .btn {
+    margin-top: auto;
+  }
+}

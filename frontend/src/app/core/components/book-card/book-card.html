@@ -1,0 +1,23 @@
+<article class="card">
+  <div class="book-card__main">
+    <app-book-cover [src]="book().cover_url" />
+
+    <div class="book-card__info">
+      <div class="book-card__text">
+        <h2 class="book-card__title">{{ book().title }}</h2>
+        <p class="book-card__author">{{ book().author }}</p>
+      </div>
+
+      <ul class="badges">
+        <li class="badge"><span class="visually-hidden">Idioma: </span>{{ language() }}</li>
+        <li class="badge badge--secondary">{{ available() ? 'Disponible' : 'No disponible ara' }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- El títol amagat fa que cada enllaç tingui un nom únic per als lectors de pantalla -->
+  <a class="btn btn--tertiary btn--block" [routerLink]="['/llibres', book().slug]">
+    Detall del llibre<span class="visually-hidden">: {{ book().title }}</span>
+    <span class="icon icon--sm icon--chevron-right" aria-hidden="true"></span>
+  </a>
+</article>

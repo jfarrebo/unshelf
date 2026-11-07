@@ -184,3 +184,65 @@ textarea.field__control {
     border-color: var(--color-input-border);
   }
 }
+
+// Llista desplegable amb estils propis (select personalitzable). Millora progressiva:
+// als navegadors que encara no ho suporten es veu la llista nativa del sistema.
+@supports (appearance: base-select) {
+  .select,
+  .select::picker(select) {
+    appearance: base-select;
+  }
+
+  .select {
+    display: flex;
+    align-items: center;
+
+    // Ja tenim la fletxa de Figma com a fons
+    &::picker-icon {
+      display: none;
+    }
+
+    &:open {
+      border-color: var(--color-focus);
+    }
+  }
+
+  .select::picker(select) {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-8);
+    background-color: var(--color-surface);
+    box-shadow: 0 4px 16px rgba(28, 34, 48, 0.12);
+  }
+
+  .select option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    min-height: var(--touch-target);
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--radius-4);
+    @include type('body-small');
+    color: var(--color-text);
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      outline: none;
+      background-color: var(--color-selection);
+    }
+
+    // Opció triada: en blau i amb la marca ✓ (no només el color)
+    &:checked {
+      @include type('label-medium');
+      color: var(--color-action-primary);
+    }
+
+    &::checkmark {
+      order: 1;
+      margin-left: auto;
+      color: var(--color-action-primary);
+    }
+  }
+}

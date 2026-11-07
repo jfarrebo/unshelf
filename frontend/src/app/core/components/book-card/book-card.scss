@@ -1,0 +1,41 @@
+@use 'abstracts' as *;
+
+:host {
+  display: flex;
+  flex: 1;
+
+  > .card {
+    flex: 1;
+    justify-content: space-between;
+  }
+}
+
+.book-card__main {
+  display: flex;
+  gap: var(--space-12);
+}
+
+// Text a dalt, etiquetes a baix (alineades amb la base de la portada)
+.book-card__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.book-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.book-card__title {
+  @include type('body-medium');
+}
+
+.book-card__author {
+  @include type('body-small');
+  color: var(--color-text-secondary);
+}

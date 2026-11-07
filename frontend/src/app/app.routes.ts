@@ -5,7 +5,26 @@ export const routes: Routes = [
   {
     path: '',
     title: 'Unshelf',
+    data: { surface: true }, // fons blanc
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+  },
+  {
+    path: 'llibres',
+    title: 'Catàleg · Unshelf',
+    data: { surface: true }, // fons blanc
+    loadComponent: () => import('./pages/catalog/catalog').then((m) => m.Catalog),
+  },
+  {
+    // El títol definitiu (nom del llibre) el posa la mateixa pàgina en carregar-lo
+    path: 'llibres/:slug',
+    title: 'Llibre · Unshelf',
+    loadComponent: () => import('./pages/book-detail/book-detail').then((m) => m.BookDetail),
+  },
+  {
+    path: 'acces',
+    title: 'Accés · Unshelf',
+    canActivate: [guestGuard],
+    loadComponent: () => import('./pages/access/access').then((m) => m.Access),
   },
   {
     path: 'inici-sessio',

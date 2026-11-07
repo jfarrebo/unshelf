@@ -1,0 +1,60 @@
+@use 'abstracts' as *;
+
+// Títol + botó de filtres; a sota, la cerca per zona
+.catalog__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.catalog__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.catalog__location {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+
+  @include from(md) {
+    max-width: rem(480px);
+  }
+}
+
+.catalog__results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+// «Mostrant 12 de 48 resultats» a l'esquerra, ordre a la dreta
+.catalog__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.catalog__summary {
+  @include type('label-medium');
+  color: var(--color-text-muted);
+
+  &:focus {
+    outline: none; // rep el focus per programa, no amb el teclat
+  }
+}
+
+// Etiquetes de l'esquelet a la base, com a les targetes reals
+.catalog__skeleton-badges {
+  margin-top: auto;
+  gap: var(--space-8);
+}
+
+// Mentre arriben els resultats nous, els anteriors es mostren atenuats
+.card-grid.is-loading {
+  opacity: 0.6;
+}

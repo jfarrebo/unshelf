@@ -1,0 +1,41 @@
+@use 'abstracts' as *;
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-4) 0;
+  list-style: none;
+}
+
+// Figma: 39 × 34; aquí 44 × 44, com la resta de botons
+.pagination__page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-8);
+  @include type('body-small');
+  color: var(--color-text);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--color-selection);
+    color: var(--color-text);
+  }
+
+  &.is-current {
+    background-color: var(--color-action-primary);
+    color: var(--color-on-primary);
+  }
+}
+
+.pagination__gap {
+  padding-inline: var(--space-8);
+  @include type('body-small');
+  color: var(--color-text-disabled);
+}

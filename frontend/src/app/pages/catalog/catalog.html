@@ -1,0 +1,119 @@
+<div class="page">
+  <div class="catalog__top">
+    <div class="catalog__heading">
+      <div class="page-header">
+        @if (filters().q) {
+          <h1>Resultats</h1>
+          <p>Has cercat «{{ filters().q }}».</p>
+        } @else {
+          <h1>Catàleg</h1>
+        }
+      </div>
+
+      <button type="button" class="icon-button icon-button--outline" (click)="openFilters()">
+        <span class="icon icon--filter" aria-hidden="true"></span>
+        <span class="visually-hidden">Filtres</span>
+        @if (activeFilters()) {
+          <span class="icon-button__count" aria-hidden="true">{{ activeFilters() }}</span>
+          <span class="visually-hidden">, {{ activeFilters() }} actius</span>
+        }
+      </button>
+    </div>
+
+    <form class="catalog__location" role="search" aria-labelledby="zona-etiqueta"
+          (submit)="searchLocation($event, zona.value)">
+      <label id="zona-etiqueta" class="field__label" for="zona">Buscar per zona</label>
+      <div class="search-field">
+        <span class="icon icon--sm icon--search" aria-hidden="true"></span>
+        <input #zona id="zona" name="zona" type="search" class="field__control" autocomplete="address-level2"
+               placeholder="Ciutat, codi postal…" [value]="filters().location" />
+      </div>
+    </form>
+  </div>
+
+  <div class="catalog__results">
+    <div class="catalog__toolbar">
+      <!-- role="status": el lector de pantalla anuncia el nombre de resultats quan canvia -->
+      <p #summary class="catalog__summary" role="status" tabindex="-1">
+        @if (loading()) {
+          Carregant els llibres…
+        } @else if (result(); as page) {
+          Mostrant {{ page.data.length }} de {{ page.meta.total }} resultats
+        }
+      </p>
+
+      <label class="visually-hidden" for="ordre">Ordena per</label>
+      <select id="ordre" class="select" (change)="sortBy($any($event.target).value)">
+        @for (option of sortOptions; track option[0]) {
+          <option [value]="option[0]" [selected]="option[0] === filters().sort">{{ option[1] }}</option>
+        }
+      </select>
+    </div>
+
+    @if (failed()) {
+      <div class="notice notice--error" role="alert">
+        <span class="icon icon--alert-circle" aria-hidden="true"></span>
+        <div class="notice__content">
+          <p class="notice__title">No hem pogut carregar el catàleg</p>
+          <p>Comprova la connexió i torna-ho a provar.</p>
+        </div>
+        <button type="button" class="btn btn--tertiary" (click)="retry()">Torna-ho a provar</button>
+      </div>
+    } @else if (result(); as page) {
+      @if (page.data.length) {
+        <ul class="card-grid" [class.is-loading]="loading()" [attr.aria-busy]="loading()">
+          @for (book of page.data; track book.id_book) {
+            <li><app-book-card [book]="book" /></li>
+          }
+        </ul>
+
+        @if (page.meta.last_page > 1) {
+          <app-pagination [current]="page.meta.current_page" [last]="page.meta.last_page"
+                          [paramsFor]="paramsForPage" (pageChange)="onPageChange($event)" />
+        }
+      } @else {
+        <div class="empty-state">
+          <div class="empty-state__text">
+            @if (filters().q) {
+              <h2>No s'han trobat resultats per «{{ filters().q }}».</h2>
+              <p>Prova una altra cerca, elimina algun filtre o modifica la teva ubicació.</p>
+            } @else if (hasAnyFilter()) {
+              <h2>No s'han trobat resultats</h2>
+              <p>Prova una altra cerca, elimina algun filtre o modifica la teva ubicació.</p>
+            } @else {
+              <h2>Encara no hi ha llibres disponibles</h2>
+              <p>Quan algú comparteixi un llibre, apareixerà aquí.</p>
+            }
+          </div>
+          @if (hasAnyFilter()) {
+            <button type="button" class="btn btn--primary btn--block" (click)="clearFilters()">Netejar els filtres</button>
+          }
+        </div>
+      }
+    } @else {
+      <!-- Primera càrrega: esquelet amb la forma de les targetes (decoratiu; el text el dona role="status") -->
+      <ul class="card-grid" aria-hidden="true">
+        @for (item of skeletonCards; track item) {
+          <li>
+            <div class="card">
+              <div class="skeleton-row">
+                <span class="skeleton skeleton--cover"></span>
+                <div class="skeleton-stack">
+                  <span class="skeleton skeleton--title"></span>
+                  <span class="skeleton skeleton--short"></span>
+                  <div class="skeleton-row catalog__skeleton-badges">
+                    <span class="skeleton skeleton--badge"></span>
+                    <span class="skeleton skeleton--badge"></span>
+                  </div>
+                </div>
+              </div>
+              <span class="skeleton skeleton--button"></span>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>
+
+<app-filters-sheet [genres]="genres()" [value]="sheetFilters()" (apply)="applyFilters($event)" />

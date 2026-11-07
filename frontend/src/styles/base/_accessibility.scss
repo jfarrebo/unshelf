@@ -34,6 +34,8 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important; // si no, les animacions infinites parpellejarien
+
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }

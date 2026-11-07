@@ -6,6 +6,11 @@
   min-height: 100dvh;
 }
 
+// Pàgines amb fons blanc (portada i catàleg)
+:host(.is-surface) {
+  background-color: var(--color-surface);
+}
+
 .site-main {
   flex: 1;
 

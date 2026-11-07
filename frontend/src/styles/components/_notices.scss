@@ -25,6 +25,12 @@
   @include type('label-medium');
 }
 
+// Acció dins de l'avís (p. ex. «Inicia la sessió»), sota el text
+.notice__action {
+  align-self: flex-start;
+  margin-top: var(--space-8);
+}
+
 $tones: (
   info: (
     'info-bg',

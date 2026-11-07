@@ -1,0 +1,156 @@
+<div class="page">
+  <p>
+    <a routerLink="/llibres" class="book-detail__back">
+      <span class="icon icon--sm icon--chevron-left" aria-hidden="true"></span>
+      Tornar al catàleg
+    </a>
+  </p>
+
+  @if (loading()) {
+    <p class="visually-hidden" role="status">Carregant el llibre…</p>
+
+    <!-- Esquelet amb la forma de la fitxa (decoratiu) -->
+    <div class="book-detail__skeleton" aria-hidden="true">
+      <span class="skeleton skeleton--heading"></span>
+      <div class="skeleton-row">
+        <span class="skeleton skeleton--cover-lg"></span>
+        <div class="skeleton-stack">
+          <span class="skeleton skeleton--title"></span>
+          <span class="skeleton skeleton--short"></span>
+          <span class="skeleton skeleton--short"></span>
+        </div>
+      </div>
+      <div class="skeleton-stack">
+        <span class="skeleton skeleton--text"></span>
+        <span class="skeleton skeleton--text"></span>
+        <span class="skeleton skeleton--short"></span>
+      </div>
+      <ul class="card-grid">
+        @for (item of [1, 2, 3]; track item) {
+          <li>
+            <div class="card">
+              <div class="skeleton-row">
+                <span class="skeleton skeleton--avatar"></span>
+                <div class="skeleton-stack">
+                  <span class="skeleton skeleton--title"></span>
+                  <span class="skeleton skeleton--short"></span>
+                </div>
+              </div>
+              <span class="skeleton skeleton--box"></span>
+              <span class="skeleton skeleton--button"></span>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  } @else if (notFound()) {
+    <div class="empty-state empty-state--surface">
+      <div class="empty-state__text">
+        <h1>No hem trobat aquest llibre</h1>
+        <p>Potser l'enllaç és incorrecte o el llibre ja no té exemplars disponibles.</p>
+      </div>
+      <a routerLink="/llibres" class="btn btn--primary btn--block">Anar al catàleg</a>
+    </div>
+  } @else if (failed()) {
+    <div class="notice notice--error" role="alert">
+      <span class="icon icon--alert-circle" aria-hidden="true"></span>
+      <div class="notice__content">
+        <p class="notice__title">No hem pogut carregar el llibre</p>
+        <p>Comprova la connexió i torna-ho a provar.</p>
+      </div>
+      <button type="button" class="btn btn--tertiary" (click)="retry()">Torna-ho a provar</button>
+    </div>
+  } @else if (book(); as book) {
+    <!-- Dades del llibre -->
+    <section class="book-detail__summary" aria-labelledby="titol-llibre">
+      <h1 id="titol-llibre">{{ book.title }}</h1>
+
+      <div class="book-detail__info">
+        <app-book-cover [src]="book.cover_url" size="lg" />
+
+        <div class="book-detail__meta">
+          <div class="book-detail__facts">
+            <p class="book-detail__author">{{ book.author }}</p>
+            @if (book.isbn) {
+              <p class="book-detail__isbn">ISBN: {{ book.isbn }}</p>
+            }
+            @if (book.genre; as genre) {
+              <p>
+                <a
+                  class="book-detail__genre"
+                  routerLink="/llibres"
+                  [queryParams]="{ genere: genre.slug }"
+                >
+                  <span class="visually-hidden">Gènere: </span>{{ genre.name }}
+                </a>
+              </p>
+            }
+          </div>
+
+          <ul class="badges">
+            <li class="badge"><span class="visually-hidden">Idioma: </span>{{ language() }}</li>
+            <li class="badge badge--secondary">
+              {{ availableCount() ? 'Disponible' : 'No disponible ara' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sinopsi -->
+    @if (book.synopsis) {
+      <section class="book-detail__synopsis" aria-labelledby="sinopsi">
+        <h2 id="sinopsi">Sinopsi</h2>
+        <p
+          id="sinopsi-text"
+          class="book-detail__synopsis-text"
+          [class.is-clamped]="synopsisIsLong() && !synopsisExpanded()"
+        >
+          {{ book.synopsis }}
+        </p>
+        @if (synopsisIsLong()) {
+          <div class="book-detail__more">
+            <button
+              type="button"
+              class="link-button"
+              aria-controls="sinopsi-text"
+              [attr.aria-expanded]="synopsisExpanded()"
+              (click)="synopsisExpanded.set(!synopsisExpanded())"
+            >
+              {{ synopsisExpanded() ? 'Llegir menys' : 'Llegir més' }}
+            </button>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- Exemplars -->
+    <section class="book-detail__copies" aria-labelledby="exemplars">
+      <div class="page-header">
+        <h2 id="exemplars">{{ copiesHeading() }}</h2>
+        <p>Compartir és gratuït. L'entrega es fa en persona.</p>
+      </div>
+
+      <ul class="card-grid">
+        @for (copy of copies(); track copy.id_copy) {
+          <li><app-copy-card [copy]="copy" [currentUserId]="currentUserId()" /></li>
+        }
+      </ul>
+
+      <!-- Visitant: avís fix (no un toast, que desapareix) amb l'acció per poder sol·licitar -->
+      @if (!isLoggedIn() && availableCount()) {
+        <div class="notice notice--info">
+          <span class="icon icon--info" aria-hidden="true"></span>
+          <div class="notice__content">
+            <p class="notice__title">Vols sol·licitar un exemplar?</p>
+            <p>Inicia la sessió o crea un compte per sol·licitar-ne un. És gratuït.</p>
+            <a routerLink="/acces" class="btn btn--primary notice__action">
+              Accedeix al teu compte
+              <span class="icon icon--sm icon--chevron-right" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      }
+    </section>
+  }
+</div>
