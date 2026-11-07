@@ -4,7 +4,11 @@ export type Language = 'catala' | 'castella' | 'angles' | 'frances';
 export type CopyCondition = 'com_nou' | 'bon_estat' | 'acceptable';
 export type CopyMode = 'prestec' | 'donacio';
 export type CopyStatus = 'disponible' | 'pausat' | 'reservat' | 'en_prestec' | 'cedit' | 'retirat';
-export type RequestStatus = 'pendent' | 'acceptada' | 'rebutjada' | 'cancellada' | 'finalitzada';
+export type RequestStatus =
+  'pendent' | 'acceptada' | 'en_prestec' | 'rebutjada' | 'cancellada' | 'finalitzada';
+
+/** Sol·licituds en curs (les altres ja s'han tancat). */
+export const ACTIVE_REQUEST_STATUSES: RequestStatus[] = ['pendent', 'acceptada', 'en_prestec'];
 
 export interface Genre {
   id_genre: number;
@@ -54,7 +58,7 @@ export interface Book {
   copies?: Copy[];
 }
 
-/** Resposta paginada de Laravel (només els camps que fem servir). */
+/** Resposta paginada de Laravel */
 export interface Paginated<T> {
   data: T[];
   meta: {

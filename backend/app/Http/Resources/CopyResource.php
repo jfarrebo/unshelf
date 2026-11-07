@@ -25,6 +25,16 @@ class CopyResource extends JsonResource
             'book' => new BookResource($this->whenLoaded('book')),
             'owner' => new PublicUserResource($this->whenLoaded('owner')),
             'pending_requests_count' => $this->whenCounted('pending_requests_count'),
+            // Fitxa del llibre amb sessió: el controlador només carrega la sol·licitud activa
+            // de l'usuari actual; si no n'hi ha, null. Sense sessió, el camp no apareix.
+            'my_request' => $this->whenLoaded('requests', function () {
+                $request = $this->requests->first();
+
+                return $request ? [
+                    'id_book_request' => $request->id_book_request,
+                    'status' => $request->status,
+                ] : null;
+            }),
         ];
     }
 }

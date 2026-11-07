@@ -33,5 +33,10 @@ class DatabaseSeeder extends Seeder
                 'city' => 'Barcelona',
             ]
         );
+
+        // Catàleg de demostració: només en local, mai a producció
+        if (app()->environment('local')) {
+            $this->call(DemoCatalogSeeder::class);
+        }
     }
 }

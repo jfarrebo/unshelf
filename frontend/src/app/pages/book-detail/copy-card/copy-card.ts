@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Copy } from '../../../core/models/book';
+import { ACTIVE_REQUEST_STATUSES, Copy } from '../../../core/models/book';
 import { CONDITION_LABELS, STATUS_LABELS, initials } from '../../../core/models/labels';
 
 /**
@@ -23,10 +23,10 @@ export class CopyCard {
 
   protected readonly isOwn = computed(() => this.copy().owner?.id_user === this.currentUserId());
   protected readonly isLoggedIn = computed(() => this.currentUserId() !== null);
-  /** Sol·licitud activa de l'usuari sobre aquest exemplar (el camp l'afegirà el back-end). */
+  /** Sol·licitud en curs de l'usuari sobre aquest exemplar (my_request, només amb sessió). */
   protected readonly myRequest = computed(() => {
     const request = this.copy().my_request;
-    return request && ['pendent', 'acceptada'].includes(request.status) ? request : null;
+    return request && ACTIVE_REQUEST_STATUSES.includes(request.status) ? request : null;
   });
 
   protected readonly ownerName = computed(() => this.copy().owner?.name ?? 'Usuari');
