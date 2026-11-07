@@ -30,7 +30,16 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "@fontsource/libre-franklin/latin-400.css",
+              "@fontsource/libre-franklin/latin-400-italic.css",
+              "@fontsource/libre-franklin/latin-500.css",
+              "@fontsource/libre-franklin/latin-700.css",
+              "src/styles.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            }
           },
           "configurations": {
             "production": {

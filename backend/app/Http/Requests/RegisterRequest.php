@@ -17,7 +17,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', Password::min(8)],
+            'password' => ['required', 'string', Password::min(12)],
             'city' => ['required', 'string', 'max:100'],
             'postal_code' => ['nullable', 'string', 'max:10'],
             'accepted_privacy' => ['accepted'],   // RGPD: acceptació de la política de privacitat

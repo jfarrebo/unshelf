@@ -2,13 +2,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { PasswordToggle } from '../../core/components/password-toggle/password-toggle';
 import { AuthService } from '../../core/services/auth.service';
 
 type Field = 'name' | 'email' | 'password' | 'city' | 'postal_code' | 'accepted_privacy';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, PasswordToggle],
   templateUrl: './register.html',
 })
 export class Register {
@@ -19,7 +20,7 @@ export class Register {
   readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.maxLength(100)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(12)]],
     city: ['', [Validators.required, Validators.maxLength(100)]],
     postal_code: ['', Validators.maxLength(10)],
     accepted_privacy: [false, Validators.requiredTrue],
