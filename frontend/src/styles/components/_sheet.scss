@@ -1,0 +1,95 @@
+@use '../abstracts' as *;
+
+// Full inferior (Figma «Catàleg · Filtres»), fet amb <dialog> natiu:
+// showModal() bloqueja la resta de la pàgina, Escape el tanca i el focus queda a dins.
+// Mòbil: enganxat a baix i a tota l'amplada. A partir de md: finestra centrada.
+.sheet {
+  width: 100%;
+  max-width: 100%;
+  max-height: 90dvh;
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-16) var(--radius-16) 0 0;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+
+  &::backdrop {
+    background-color: rgba(28, 34, 48, 0.5);
+  }
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include from(md) {
+    max-width: rem(480px);
+    margin: auto;
+    border-radius: var(--radius-16);
+  }
+}
+
+// Capçalera fixa: «nansa» decorativa + títol + tancar
+.sheet__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-24) var(--space-12);
+  box-shadow: var(--shadow-soft);
+
+  &::before {
+    content: '';
+    align-self: center;
+    width: rem(40px);
+    height: rem(4px);
+    margin-top: var(--space-8);
+    border-radius: var(--radius-full);
+    background-color: var(--color-text-muted);
+
+    @include from(md) {
+      display: none; // a escriptori no és un full que s'arrossega
+    }
+  }
+}
+
+.sheet__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+// Contingut amb desplaçament propi
+.sheet__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-24);
+  overflow-y: auto;
+}
+
+// Peu fix amb l'acció principal
+.sheet__footer {
+  padding: var(--space-16) var(--space-24) var(--space-24);
+  box-shadow: var(--shadow-soft);
+}
+
+// El <form> ocupa tot el full: capçalera i peu fixos, només el cos es desplaça
+.sheet__form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+
+  .sheet__body {
+    min-height: 0;
+  }
+}
+
+// «Veure més» alineat a la dreta, com a Figma
+.filters-sheet__more {
+  display: flex;
+  justify-content: flex-end;
+}

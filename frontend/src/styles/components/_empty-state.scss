@@ -1,0 +1,31 @@
+@use '../abstracts' as *;
+
+// Estat buit (Figma «Empty State»): què ha passat + què es pot fer.
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  border-radius: var(--radius-16);
+  background-color: var(--color-page-muted);
+}
+
+.empty-state__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+
+  h2 {
+    @include type('heading-small');
+  }
+
+  p {
+    @include type('body-small');
+    color: var(--color-text-secondary);
+  }
+}
+
+// Dins de pàgines amb fons page-muted, l'estat buit va sobre blanc perquè es distingeixi
+.page .empty-state {
+  background-color: var(--color-surface);
+}

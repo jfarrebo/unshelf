@@ -1,0 +1,65 @@
+@use '../abstracts' as *;
+
+// Targeta (Figma «Card»): fons blanc, radi 16, padding 12, ombra suau.
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-12);
+  border-radius: var(--radius-16);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+// Variant destacada (Figma «Card · Focus»): p. ex. l'exemplar de l'usuari a la fitxa
+.card--highlight {
+  border: 2px solid var(--color-focus);
+  background-color: var(--color-page-muted);
+  box-shadow: none;
+}
+
+// Llista de targetes en graella: 1 columna al mòbil, 2 a tauleta, 3 a escriptori
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-16);
+  padding: 0;
+  list-style: none;
+
+  @include from(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include from(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  > li {
+    display: flex; // les targetes d'una fila tenen la mateixa alçada
+  }
+
+  .card {
+    flex: 1;
+  }
+}
+
+// Caixa d'informació dins d'una targeta (Figma «Condicions de cessió»)
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-12);
+  border-radius: var(--radius-8);
+  background-color: var(--color-page-muted);
+  @include type('body-small');
+  color: var(--color-text-secondary);
+
+  strong {
+    @include type('body-medium', 700);
+    color: var(--color-text);
+  }
+
+  .card--highlight & {
+    background-color: var(--color-surface);
+  }
+}

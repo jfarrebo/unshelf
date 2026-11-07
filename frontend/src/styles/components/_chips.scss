@@ -1,0 +1,61 @@
+@use '../abstracts' as *;
+
+// Xip de filtre (Figma «Chip»): una casella de selecció amb aspecte de píndola.
+// L'input real queda amagat visualment però és el que rep el focus i l'estat (accessible).
+// Seleccionat: fons blau fosc + marca de verificació (no només el color).
+.chip-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-8);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--touch-target);
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--color-focus);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  @include type('label-medium');
+  color: var(--color-text-secondary);
+  cursor: pointer;
+
+  input {
+    @include visually-hidden;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  &:hover {
+    background-color: var(--color-selection);
+  }
+
+  &:has(input:checked) {
+    background-color: var(--color-action-primary-pressed);
+    color: var(--color-on-primary);
+
+    .icon {
+      display: inline-block;
+    }
+  }
+
+  // El focus és de l'input amagat: l'anell es dibuixa a la píndola
+  &:has(input:focus-visible) {
+    @include focus-ring;
+  }
+
+  &:has(input:disabled) {
+    border-color: var(--color-border-disabled);
+    opacity: var(--opacity-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--color-surface);
+    }
+  }
+}

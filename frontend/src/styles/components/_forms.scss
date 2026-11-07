@@ -131,3 +131,56 @@ textarea.field__control {
     }
   }
 }
+
+// Grup de camps amb títol (fieldset + legend): p. ex. cada bloc de filtres
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  legend {
+    margin-bottom: var(--space-4);
+    padding: 0;
+    @include type('label-medium');
+    color: var(--color-text);
+  }
+}
+
+// Camp de cerca amb la lupa a l'esquerra (Figma «Pattern / Search»)
+.search-field {
+  position: relative;
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: var(--space-12);
+    transform: translateY(-50%);
+    color: var(--color-text-secondary);
+    pointer-events: none;
+  }
+
+  .field__control {
+    padding-left: calc(var(--space-12) + 1rem + var(--space-8));
+  }
+}
+
+// Desplegable (Figma «Select»): el <select> natiu, amb la fletxa de Figma
+.select {
+  min-height: var(--touch-target);
+  padding: var(--space-4) calc(var(--space-8) + 1.5rem + var(--space-4)) var(--space-4) var(--space-12);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-8);
+  background: var(--color-surface) url('/icons/chevron-down.svg') right var(--space-8) center / 1.5rem no-repeat;
+  appearance: none;
+  @include type('body-small');
+  color: var(--color-text);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--color-input-border);
+  }
+}

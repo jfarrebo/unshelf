@@ -1,0 +1,24 @@
+@use '../abstracts' as *;
+
+// Avatar (Figma «Avatar»): foto rodona o, si no n'hi ha, les inicials. Decoratiu:
+// el nom de la persona sempre apareix al costat en text.
+.avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  background-color: var(--color-selection);
+  @include type('label-small');
+  color: var(--color-on-selection);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

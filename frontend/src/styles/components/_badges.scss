@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+// Etiqueta d'estat (Figma «Badge»): no interactiva; el text explica l'estat, no només el color.
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-4);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  @include type('label-small');
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+// Tons de Figma: Primary (per defecte), Secondary i Warning
+.badge--secondary {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+}
+
+.badge--warning {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.badge--info {
+  background-color: var(--color-info-bg);
+  color: var(--color-info-text);
+}
