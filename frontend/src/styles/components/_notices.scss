@@ -22,7 +22,7 @@
 }
 
 .notice__title {
-  @include type('label-medium');
+  @include type('body-medium');
 }
 
 // Acció dins de l'avís (p. ex. «Inicia la sessió»), sota el text

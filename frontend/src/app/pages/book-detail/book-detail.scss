@@ -42,17 +42,27 @@
   gap: var(--space-8);
 }
 
+// Títol, autor i etiquetes un nivell per sobre de l'escala per defecte: són el focus de la pàgina
+.book-detail__title {
+  @include type('heading-large');
+}
+
 .book-detail__author {
+  @include type('heading-small');
   color: var(--color-text-secondary);
 }
 
+.badge {
+  @include type('label-medium');
+}
+
 .book-detail__isbn {
-  @include type('label-small');
+  @include type('label-medium');
   color: var(--color-text-secondary);
 }
 
 .book-detail__genre {
-  @include type('label-small');
+  @include type('label-medium');
   color: var(--color-brand);
 }
 

@@ -8,7 +8,7 @@
 
 .copy-card {
   flex: 1;
-  gap: var(--space-16);
+  gap: var(--space-8);
 }
 
 .copy-card__owner {
@@ -41,14 +41,15 @@
   color: var(--color-text-secondary);
 }
 
-// El botó queda a baix de tot encara que les notes tinguin llargades diferents
+// La caixa de condicions (i el botó, si n'hi ha) queda a baix de tot encara que
+// les notes tinguin llargades diferents: les targetes d'una fila s'alineen
 .copy-card__body {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: var(--space-8);
 
-  > .btn {
+  > .info-box {
     margin-top: auto;
   }
 }

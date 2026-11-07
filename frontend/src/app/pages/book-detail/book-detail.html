@@ -63,7 +63,7 @@
   } @else if (book(); as book) {
     <!-- Dades del llibre -->
     <section class="book-detail__summary" aria-labelledby="titol-llibre">
-      <h1 id="titol-llibre">{{ book.title }}</h1>
+      <h1 id="titol-llibre" class="book-detail__title">{{ book.title }}</h1>
 
       <div class="book-detail__info">
         <app-book-cover [src]="book.cover_url" size="lg" />
